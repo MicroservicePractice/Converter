@@ -1,7 +1,7 @@
 import pika, json, os, tempfile
 from bson.objectid import ObjectId
 import pika.spec
-import moviepy
+from moviepy import VideoFileClip
 
 def start(message, fs_videos, fs_mp3s, channel):
     message = json.loads(message)
@@ -16,7 +16,8 @@ def start(message, fs_videos, fs_mp3s, channel):
     tf.write(out.read())
 
     #create audio from temp video file
-    audio = moviepy.editor.VideoFileClip(tf.name).audio
+    
+    audio = VideoFileClip(tf.name).audio
 
     tf.close()
 
